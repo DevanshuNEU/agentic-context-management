@@ -1,5 +1,15 @@
 # Chapter 25 — Five Approaches to Context Management
 
+**Chapter Type: C** — Framework and Approach Evaluation (Type C)
+
+**The book's master claim** is that architecture is the leverage point, not the model. This chapter is a specific instance of that claim: the choice of who controls context curation — and when, and by what mechanism — determines the failure mode of a long-running agent. A larger context window does not fix this. A better model does not fix this. The architecture does.
+
+**Core claim:** After reading this chapter, a student will understand how the locus of control for context curation determines the failure mode of a long-running agent well enough to select the right context management architecture for a given workload without making the mistake of treating context overflow as a capacity problem solvable by a larger context window.
+
+This chapter evaluates five approaches — Passive Truncation, Compaction-on-Threshold, Recursive Language Models (RLM), Lossless Context Management (LCM), and Agentic Context Management (ACM) — applied to the same workload. Each approach makes a different architectural bet. Each bet produces a characteristic failure mode. Understanding which failure mode your system can live with is the design decision this chapter teaches.
+
+---
+
 ## The Scenario
 
 At 9:47 on a Tuesday morning, a senior engineer at a mid-sized fintech company opened a terminal and invoked her team's coding agent — call it Archer — and gave it a single instruction: *Find and fix the authentication bug that's causing intermittent 401 errors on the token-refresh endpoint.* The bug had been evading human review for three days. Logs showed it occurring in roughly one session in forty, always under load, never in staging. She set Archer loose and turned to other work.
