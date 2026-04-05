@@ -17,7 +17,7 @@ authors_note.md                           ← 3-page pedagogical report
 ch25_notebook.ipynb                       ← full demo notebook (13 cells)
 ch25_notebook_results.ipynb               ← pre-executed results
 passive_agent.py                          ← standalone passive agent (runnable)
-acm_agent.py                             ← standalone ACM agent (runnable)
+acm_agent.py                              ← standalone ACM agent (runnable)
 README.md                                 ← this file
 ```
 

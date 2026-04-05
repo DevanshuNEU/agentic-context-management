@@ -1,4 +1,4 @@
-# ch25/passive_agent.py
+# passive_agent.py
 # Chapter 25 — Five Approaches to Context Management
 # Passive Agent Loop — runnable demo
 #
@@ -8,8 +8,6 @@
 # Expected output: wrong answer (pool_exhaustion + cache_invalidation)
 # because dead-end vocabulary accumulates and biases hypothesis generation.
 
-from dataclasses import dataclass, field
-from typing import Optional
 
 TASK = """Debug a function that fails approximately 1 time in 20 under
 concurrent load. The function handles session token refresh. Logs show

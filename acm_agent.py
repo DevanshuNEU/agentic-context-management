@@ -1,4 +1,4 @@
-# ch25/acm_agent.py
+# acm_agent.py
 # Chapter 25 — Five Approaches to Context Management
 # ACM Agent Loop — runnable demo
 #
@@ -106,6 +106,10 @@ class ACMAgent:
                         view[mid].removed = True
                         view[mid].summary = d.get("summary")
                         view[mid].label = d.get("label")
+            elif d["type"] == "unpin":
+                for mid in d["ids"]:
+                    if mid in view:
+                        view[mid].pinned = False
             elif d["type"] == "retrieve":
                 for msg in view.values():
                     if msg.label == d.get("label"):
@@ -138,6 +142,11 @@ class ACMAgent:
         self.directives.append({"type": "pin", "ids": ids})
         self.tool_log.append({"tool": "pin", "ids": ids})
         print(f"  [ACM] pin({ids}) — protected for entire session")
+
+    def unpin(self, ids):
+        """Remove protection from pinned messages."""
+        self.directives.append({"type": "unpin", "ids": ids})
+        self.tool_log.append({"tool": "unpin", "ids": ids})
 
     def retrieve_context(self, label=None):
         """Restore previously removed content."""
