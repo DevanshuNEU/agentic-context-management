@@ -71,6 +71,18 @@ Eddy wanted a full paragraph on how benchmark selection is standard practice in 
 *Rejected — Failure 6 (KV entry phrasing):*
 Eddy flagged: *"the attention computation weighted both sets of KV entries"* as conflating keys and values. Eddy's proposed fix was: *"The query vectors at the current position produced high dot-product scores against both sets of key vectors, pulling the weighted sum of value vectors toward both framings simultaneously."* I initially noted this as a rejection, but on reflection this correction is mechanistically more precise and consistent with the mechanism section. I accepted it. This is documented as a correction, not a rejection.
 
+**Figure Architect — what it flagged**
+
+Figure Architect was used to scan the stable chapter draft for high-assertion zones. It flagged five critical locations where a figure is architecturally necessary rather than decorative. Prompts were generated for each and executed via Gemini. All five figures are now embedded in the chapter at the flagged locations and included in `figures/`:
+
+1. **figure1_topology.png** (CRITICAL) — The five-approach locus-of-control topology. Embeds after the Scenario's five-approach preview paragraph. This is where the chapter's master argument is stated visually.
+2. **figure2_gradient.png** (CRITICAL) — Context rot gradient chart: vocabulary contamination per turn for all four approaches over 22 turns. Embeds after the Mechanism section's gradient description. The ACM line is flat after turn 6; all others rise.
+3. **figure3_before_after.png** (CRITICAL) — ACM Context View before and after `remove_context`. Embeds in the ACM section after the before/after code block. Shows 300 tokens → 3 lines concretely.
+4. **figure4_lcm_dag.png** (IMPORTANT) — LCM DAG structure showing Immutable Store vs Active Context. Embeds after the ASCII DAG in the LCM section. The visual makes the node hierarchy immediately legible.
+5. **figure5_matrix.png** (IMPORTANT) — Failure visibility matrix (5×4 grid, ACM row in blue). Embeds after the Decision Matrix table. ACM's auditable row stands out visually from all silent rows.
+
+For the video, Figure 1 (topology) and Figure 3 (before/after) will be drawn by hand on camera during the Explain segment — hand-drawn figures demonstrate understanding more clearly than displayed images.
+
 **Human Decision Node — Demo (Cell 8)**
 The scaffold proposed reactive ACM — `remove_context` fires when context pressure builds. I rejected this because the architectural argument is about *timing*, not just tool availability. Proactive removal at moment of invalidation prevents the attention sink from forming. Reactive removal cleans up after damage is done. The divergence table (turn 6: passive=12 tokens, ACM=10; turn 19: passive=37, ACM=13) proves the difference is architectural, not incidental.
 

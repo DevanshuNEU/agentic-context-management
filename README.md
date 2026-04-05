@@ -8,16 +8,36 @@ This is the demo repo for Chapter 25 of *Design of Agentic Systems with Case Stu
 
 ---
 
+## 🎥 Video Walkthrough
+
+> **[ADD YOUR VIDEO LINK HERE AFTER RECORDING]**
+>
+> Format: `[Watch the 10-minute Show-and-Tell](https://youtube.com/your-link-here)`
+
+Structure: **Explain → Show → Try** (10 minutes)
+- **Explain (0:00–2:30):** Draw the 5-row topology on paper. State the architectural claim.
+- **Show (2:30–8:30):** Run notebook. Stop at Cell 8. Say on camera: *"The scaffold proposed reactive removal. I rejected it because the timing of removal is the architectural argument."*
+- **Try (8:30–10:00):** Point at the exercise. Show divergence at turn 6.
+
+---
+
 ## What's in here
 
 ```
-Chapter25_Scenario_Context_Management.md   ← full chapter prose (9 sections)
+Chapter25_Scenario_Context_Management.md   ← full chapter prose (9 sections + 5 figures)
 Chapter25_Pedagogical_Audit.md            ← Eddy the Editor audit (13 flags)
 authors_note.md                           ← 3-page pedagogical report
 ch25_notebook.ipynb                       ← full demo notebook (13 cells)
 ch25_notebook_results.ipynb               ← pre-executed results
 passive_agent.py                          ← standalone passive agent (runnable)
 acm_agent.py                              ← standalone ACM agent (runnable)
+requirements.txt                          ← zero external dependencies
+figures/
+  figure1_topology.png                    ← Five-approach locus-of-control topology
+  figure2_gradient.png                    ← Context rot gradient chart (4 lines, 22 turns)
+  figure3_before_after.png               ← ACM Context View before/after remove_context
+  figure4_lcm_dag.png                    ← LCM DAG: Immutable Store vs Active Context
+  figure5_matrix.png                     ← Failure visibility matrix (ACM row highlighted)
 README.md                                 ← this file
 ```
 
@@ -45,6 +65,8 @@ That's context rot. And it's not a model problem.
 | LCM | Engine (DAG traversal) | Semantic blindness by exclusion — lossless ≠ relevant | No |
 | ACM | Model (continuously) | Metacognitive error — model removes what it needs | **Yes** |
 
+![Figure 1 — Five-Approach Locus-of-Control Topology](figures/figure1_topology.png)
+
 ACM's failure mode is the only one that's auditable. That asymmetry is the chapter's argument.
 
 ---
@@ -70,8 +92,6 @@ Both scripts use only Python stdlib (`dataclasses`, `typing`). No pip install re
 
 ## Jupyter notebook demo
 
-For the full 13-cell demo with vocabulary drift charts and side-by-side comparison:
-
 ```bash
 jupyter notebook ch25_notebook.ipynb
 ```
@@ -81,6 +101,8 @@ jupyter notebook ch25_notebook.ipynb
 **Cell 8** → MANDATORY HUMAN DECISION NODE. `raise NotImplementedError` hard stop. Set `YOUR_DECISION = "proactive"` and document reasoning before proceeding.
 
 **Run cells 9–13** → ACM agent, comparison table, failure mode demonstration.
+
+![Figure 2 — Context Rot Gradient](figures/figure2_gradient.png)
 
 Pre-executed results are in `ch25_notebook_results.ipynb`.
 
@@ -95,6 +117,8 @@ After running both agents, answer this before checking output:
 **Answer that fails:** "The ACM agent did better because it managed context."
 
 **Answer that passes:** "At turn 6, the passive agent's context contained 12 instances of dead-end vocabulary (`pool_exhaustion`, `connection_pool`, etc.) from the turn-5 injection, creating an attention sink that biased turns 6–18 toward the wrong hypothesis. The ACM agent's context view contained a 2-line tombstone — the attention sink never formed because `remove_context` fired at the moment of invalidation."
+
+![Figure 3 — ACM Context View Before and After](figures/figure3_before_after.png)
 
 ---
 
@@ -121,6 +145,7 @@ This rejection is visible in the notebook, documented in `authors_note.md` Page 
 
 - **Bookie the Bookmaker** — prose generation, Tetrahedron structuring
 - **Eddy the Editor** — pedagogical audit (13 flags, corrections documented in `authors_note.md`)
+- **Figure Architect** — 5 publication-quality figures (topology, gradient chart, before/after, LCM DAG, failure matrix)
 - **Chapter type:** C (Framework/Approach Evaluation)
 - **Core claim:** *"After reading this chapter, a student will understand how the locus of control for context curation determines the failure mode of a long-running agent well enough to select the right context management architecture for a given workload without making the mistake of treating context overflow as a capacity problem solvable by a larger context window."*
 
