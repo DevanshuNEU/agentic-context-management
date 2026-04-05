@@ -1,0 +1,10 @@
+# Chapter 25 — Requirements
+# No external packages needed for passive_agent.py or acm_agent.py
+# Both use Python stdlib only (dataclasses, typing)
+# Requires: Python 3.8+
+
+# For the Jupyter notebook (ch25_notebook.ipynb):
+# jupyter  # any recent version
+
+# The stub tool environment simulates all LLM API calls internally.
+# No Anthropic API key required.

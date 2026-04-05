@@ -405,20 +405,30 @@ ACM is the right choice for exactly the class of problem Archer was solving: lon
 
 ## The Exercise
 
-Clone the repository and locate `ch25/passive_agent.py`. This file contains the passive agent loop from Section 3 in runnable form, connected to a stub tool environment that simulates a debugging session.
+Clone the repository. All demo files are in the root directory. No external packages required — Python 3.8+ only.
 
-**Step 1.** Run the passive agent on the following task string:
+**Step 1.** Run `passive_agent.py`:
 
-```
-Debug a function that fails approximately 1 time in 20 under concurrent load.
-The function handles session token refresh. Logs show the failure never
-reproduces in single-threaded test environments.
+```bash
+python3 passive_agent.py
 ```
 
-The stub environment is pre-configured to inject misleading tool outputs at turn 5 (a false positive indicating a database connection pool exhaustion as the cause) and at turn 12 (a false positive indicating a missing cache invalidation call). Allow the agent to run to completion — approximately twenty-five turns — and record the final answer it produces.
+The stub environment is pre-configured to inject misleading tool outputs at turn 5 (a false positive indicating database connection pool exhaustion) and at turn 12 (a false positive indicating a missing cache invalidation call). The agent runs approximately twenty-five turns. Record the final answer and the peak dead-end vocabulary count it prints.
 
-**Step 2.** Open `ch25/acm_agent.py`. This file contains the same agent loop with the four ACM tools from Section 7 added to the tool registry: `remove_context`, `pin`, `unpin`, and `retrieve_context`. The Conversation Log and Context View separation is implemented. The stub environment and injected misleading outputs are identical to Step 1. Run the ACM agent on the same task string and record its final answer.
+**Step 2.** Run `acm_agent.py` with the same task:
 
-**Step 3.** Compare the session logs from both runs side by side. Identify the turn at which the two agents' answers begin diverging — the first turn where their next-token outputs, given the same tool environment, produce different reasoning. Answer the following question in writing before checking any provided solution: at that turn, what is different about the two agents' Context Views, and why does that difference produce a different output? Your answer should name the specific tokens that are present in the passive agent's context and absent from the ACM agent's context, and trace the attention sink mechanism from Section 2 to the output divergence you observe.
+```bash
+python3 acm_agent.py
+```
 
-The exercise has one correct structural answer and many acceptable phrasings of it. The goal is not to match the phrasing — it is to demonstrate that you can identify the precise turn, the precise tokens, and the precise causal chain. An answer that says "the ACM agent did better because it managed context" has not answered the question. An answer that says "at turn 13, the passive agent's context contained eleven instances of `pool_exhaustion` from the turn-5 dead-end, which created an attention sink that biased the turn-13 hypothesis toward connection management vocabulary, while the ACM agent's context contained a three-line tombstone with no high-salience vocabulary residue" has answered it.
+The stub environment and injected misleading outputs are identical to Step 1. The ACM agent uses the four tools from Section 7: `remove_context`, `pin`, `unpin`, and `retrieve_context`. Record the final answer, the peak vocabulary count in the context view, and the tool call log it prints.
+
+**Step 3.** Compare the outputs. Identify the turn at which the two agents begin diverging. Answer the following question in writing before checking the comparison:
+
+> At that turn, what is different about the two agents' Context Views, and why does that difference produce a different output? Name the specific tokens present in the passive agent's context and absent from the ACM agent's context. Trace the attention sink mechanism from Section 2 to the output divergence you observe.
+
+The exercise has one correct structural answer and many acceptable phrasings. The goal is to demonstrate that you can identify the precise turn, the precise tokens, and the precise causal chain.
+
+An answer that says "the ACM agent did better because it managed context" has not answered the question.
+
+An answer that says "at turn 6, the passive agent's context contained twelve instances of dead-end vocabulary (`pool_exhaustion`, `connection_pool`, `db_pool`, etc.) from the turn-5 injection, which created an attention sink that biased turns 6–18 toward connection management vocabulary, while the ACM agent's context view contained a two-line tombstone summary with no high-salience vocabulary residue — the attention sink never formed because `remove_context` fired at the moment of invalidation, not reactively" has answered it.
