@@ -8,6 +8,14 @@
 
 This chapter evaluates five approaches — Passive Truncation, Compaction-on-Threshold, Recursive Language Models (RLM), Lossless Context Management (LCM), and Agentic Context Management (ACM) — applied to the same workload. Each approach makes a different architectural bet. Each bet produces a characteristic failure mode. Understanding which failure mode your system can live with is the design decision this chapter teaches.
 
+**Learning outcomes** (Bloom's Taxonomy):
+
+1. **Remember:** Name the five context management approaches and the failure mode each produces.
+2. **Understand:** Explain why the KV cache's append-only architecture makes context rot structurally inevitable under passive strategies.
+3. **Apply:** Given a workload description (session length, dead-end frequency, reversibility requirement), select the appropriate context management approach from the Decision Matrix.
+4. **Analyze:** Given a session log, identify the turn at which vocabulary contamination begins to bias hypothesis generation and trace the causal chain to the wrong output.
+5. **Evaluate:** Compare the failure signatures of engine-driven and model-driven context management approaches and justify which failure mode a given production system can tolerate.
+
 ---
 
 ## The Scenario
